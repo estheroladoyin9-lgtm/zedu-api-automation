@@ -1,0 +1,31 @@
+{
+  "name": "zedu-api-automation",
+  "version": "1.0.0",
+  "description": "This is zedu api automation project",
+  "main": "index.js",
+  "scripts": {
+   "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --runInBand"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 30000,
+    "transformIgnorePatterns": [
+      "node_modules/(?!@faker-js/faker)"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "axios": "^1.15.2",
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+  "@babel/core": "^7.29.0",
+  "@babel/preset-env": "^7.29.2",
+  "babel-jest": "^30.3.0",
+  "jest": "^30.3.0"
+}
+}
