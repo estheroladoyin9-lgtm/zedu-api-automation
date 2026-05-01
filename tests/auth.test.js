@@ -296,7 +296,7 @@ try{
 test('Fail to login with missing password field', async ()=>{
   try{    await axios.post(`${BASE_URL}/auth/login`, {
       email: process.env.TEST_EMAIL,
-    });
+    }); 
   } catch (error) {  if (!error.response) throw error;
     expect([400, 422]).toContain(error.response.status);
     expect(error.response.data).toHaveProperty('message');
@@ -453,7 +453,7 @@ test('Fail to change password with incorrect old password', async ()=>{
       headers: {
         Authorization: `Bearer ${token}`
       }
-    });
+    });throw new Error('Expected request to fail but it succeeded');
   } catch (error) {
     if (!error.response) throw error;
     expect([400, 422]).toContain(error.response.status);
@@ -479,7 +479,7 @@ test('Fail to change password with missing old_password field', async ()=>{
       headers: {
         Authorization: `Bearer ${token}`
       }
-    });
+    }); throw new Error('Expected request to fail but it succeeded');
   } catch (error) {
     if (!error.response) throw error;
     expect([400, 422]).toContain(error.response.status);
@@ -504,7 +504,7 @@ test('Fail to change password with missing new_password field', async ()=>{
       headers: {
         Authorization: `Bearer ${token}`
       }
-    });
+    });throw new Error('Expected request to fail but it succeeded');
   } catch (error) {
     if (!error.response) throw error;
     expect([400, 422]).toContain(error.response.status);
@@ -523,7 +523,7 @@ test('Fail to change password with no authorization token', async ()=>{
     await axios.put(`${BASE_URL}/auth/change-password`, {
       old_password: credentials.password,
       new_password: faker.internet.password()
-    });
+    });throw new Error('Expected request to fail but it succeeded');
   } catch (error) {
     if (!error.response) throw error;
     expect(error.response.status).toBe(401);
@@ -546,7 +546,7 @@ test('Fail to change password with invalid authorization token', async ()=>{
       headers: {
         Authorization: `Bearer ${token}invalid_token`
       }
-    });
+    });throw new Error('Expected request to fail but it succeeded');
   } catch (error) {
     if (!error.response) throw error;
     expect(error.response.status).toBe(401);
@@ -580,7 +580,7 @@ test('Fail to change password with invalid authorization token', async ()=>{
       await axios.post(`${BASE_URL}/auth/login`, {
         email: credentials.email,
         password: credentials.password
-      });
+      }); throw new Error('Expected request to fail but it succeeded');
     } catch (error) {
       if (!error.response) throw error;
       expect(error.response.status).toBe(400);
