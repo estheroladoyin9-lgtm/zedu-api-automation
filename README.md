@@ -84,7 +84,7 @@ This project uses GitHub Actions for continuous integration.
 
 The pipeline automatically:
 - Triggers on every push and pull request to main
-- Sets up Node.js v18
+- Sets up Node.js v24
 - Installs all dependencies via npm install
 - Runs the full test suite via npm test
 - Fails the build if any test fails
