@@ -47,7 +47,7 @@ jobs:
       # Step 5 — Generate test summary from JUnit report
       # Runs even if tests fail so results are always visible
       - name: Test Summary
-        uses: test-summary/action@v7
+        uses: test-summary/action@v2
         with:
           paths: reports/junit.xml
         if: always()
