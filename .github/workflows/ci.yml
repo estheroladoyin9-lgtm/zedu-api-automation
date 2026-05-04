@@ -30,7 +30,7 @@
           uses: test-summary-action@v2
           with: 
           path: reports/junit.xml
-          if:always()
+          if: always()
 
           -name: upload test results
           uses: actions/upload-artifact@v7
