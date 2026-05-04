@@ -1,32 +1,14 @@
 import 'dotenv/config';
 import axios from 'axios';
 import { faker } from '@faker-js/faker';
-import { BASE_URL } from '../utils/auth.js';
-import { getToken } from "../utils/auth.js";
+import { BASE_URL, getToken, generateUserData, registerUser, registerAndGetCredentials } from '../utils/auth.js';
 
-
-//Helper generateUserData, helps to generate random user datafor registration tests.
-function generateUserData(overrides={}) {
-    return{
-        username:faker.internet.username().replace(/[^a-zA-Z0-9_]/g, '_'),
-        email:faker.internet.email(),
-        password:process.env.TEST_PASSWORD,
-        first_name:faker.person.firstName(),
-        last_name:faker.person.lastName(),
-        phone_number: faker.phone.number({ style: 'international' }),
-        ...overrides,
-    };
-}
-// Helper function to register a user with given payload
- async function registerUser(payload) {
-    return axios.post(`${BASE_URL}/auth/register`,payload);
-    }
 
 // REGISTER ENDPOINT TESTS
 describe('POST /auth/register',()=>{
     
 test ('Register a user successfully with valid credentials',async () =>{
-const user=generateUserData();
+const user=await generateUserData();
 const res = await registerUser(user);
 //status code
 expect(res.status).toBe(201);
@@ -42,7 +24,7 @@ expect(typeof res.data.status_code).toBe('number');
 
 // NEGATIVE TESTS
  test('Fail to register a user with an already registered email',async () =>{
-    const user=generateUserData();
+    const user=await generateUserData();
     // First , register the user
     await registerUser(user);
     // Attempt to register the same user again
@@ -60,7 +42,7 @@ expect(typeof res.data.status_code).toBe('number');
   });
 
 test('Fail to register a user with missing email field',async ()=>{
-    const user = generateUserData();
+    const user = await generateUserData();
     delete user.email;
     try {
         await registerUser(user); 
@@ -76,7 +58,7 @@ test('Fail to register a user with missing email field',async ()=>{
    
 
 test ('Fail to register user with missing password field', async ()=>{
-    const user = generateUserData();
+    const user = await generateUserData();
     //delete the password field
     delete user.password;
     try {
@@ -92,7 +74,7 @@ test ('Fail to register user with missing password field', async ()=>{
   });
 
 test ('Fail to register user with missing username field', async ()=>{
-    const user = generateUserData();
+    const user = await generateUserData();
     //delete the username field
     delete user.username;
     try {
@@ -108,7 +90,7 @@ test ('Fail to register user with missing username field', async ()=>{
   });
 
 test ('Fail to register user with missing first_name field', async ()=>{
-    const user = generateUserData();
+    const user = await generateUserData();
     //delete the first name field
     delete user.first_name;
     try {
@@ -124,7 +106,7 @@ test ('Fail to register user with missing first_name field', async ()=>{
 });
 
 test ('Fail to register user with missing last_name field', async ()=>{
-    const user = generateUserData();
+    const user = await generateUserData();
     //delete the lastname field
     delete user.last_name;
     try {
@@ -140,7 +122,8 @@ test ('Fail to register user with missing last_name field', async ()=>{
 });
  
 test ('Fail to register a user with invalid email format', async () =>{
-    const user = generateUserData({email:'invalid-email'});
+  const invalid_email = faker.lorem.word(); // generates a random word which is not a valid email format
+    const user = await generateUserData({email: invalid_email});
     try{
         await registerUser(user);
          throw new Error('Expected request to fail but it succeeded');
@@ -157,7 +140,7 @@ test ('Fail to register a user with invalid email format', async () =>{
 
 test ('should treat both lowercase and uppercase email as duplicates', async () =>{
    
-    const user = generateUserData();
+    const user = await generateUserData();
     const Lower_case_Email=user.email.toLowerCase();
     const Upper_case_Email=user.email.toUpperCase();
 
@@ -177,7 +160,7 @@ catch (error){
 });
 
 test('Fail to register user with password one character below minimum', async ()=>{
-    const user = generateUserData({password:'abc123'});
+    const user = await generateUserData({password:'abc123'});
     try{
         await registerUser(user);
          throw new Error('Expected request to fail but it succeeded');
@@ -189,7 +172,7 @@ test('Fail to register user with password one character below minimum', async ()
     }
   });
 test('Fail to register user with phone number including letters', async ()=>{
-    const user = generateUserData({phone_number:'12345abcde'});
+    const user = await generateUserData({phone_number:'12345abcde'});
     try{
         await registerUser(user);
          throw new Error('Expected request to fail but it succeeded');
@@ -200,7 +183,7 @@ test('Fail to register user with phone number including letters', async ()=>{
     }
   });
   test('Fail to register user with missing phone number field', async ()=>{
-    const user = generateUserData();
+    const user = await generateUserData();
     delete user.phone_number;
     try{
         await registerUser(user);
@@ -305,9 +288,10 @@ test('Fail to login with missing password field', async ()=>{
 });
 
 test('Fail to login with invalid email format', async ()=>{
+  const invalid_email = faker.lorem.word(); // generates a random word which is not a valid email format
   try{
     await axios.post(`${BASE_URL}/auth/login`, {
-      email: 'invalid-email',
+      email: invalid_email,
       password: process.env.TEST_PASSWORD,
     });
   } catch (error) {  if (!error.response) throw error;
@@ -334,24 +318,6 @@ test('Fail to login with both email and password missing', async ()=>{
 });
 
 // CHANGE PASSWORD TESTS
-// Helper function to register a new user and get their credentials
-async function registerAndGetCredentials() {
-  const credentials = {
-    email: faker.internet.email().toLowerCase(),
-    password: process.env.TEST_PASSWORD,
-  };
-
-  await axios.post(`${BASE_URL}/auth/register`, {
-    username: faker.internet.username().replace(/[^a-zA-Z0-9_]/g, '_'),
-    email: credentials.email,
-    password: credentials.password,
-    first_name: faker.person.firstName(),
-    last_name: faker.person.lastName(),
-    phone_number: faker.phone.number({ style: 'international' }),
-  });
-
-  return credentials;
-}
 
 describe('PUT /auth/change-password',()=>{
   // POSITIVE TESTS
@@ -538,13 +504,14 @@ test('Fail to change password with invalid authorization token', async ()=>{
     password: credentials.password
   });
   const token = loginResponse.data.data.access_token;
+  const invalidToken = faker.string.alphanumeric(30); // generate a random invalid token
   try{
     await axios.put(`${BASE_URL}/auth/change-password`, {
       old_password: credentials.password,
       new_password: faker.internet.password()
     }, {
       headers: {
-        Authorization: `Bearer ${token}invalid_token`
+        Authorization: `Bearer ${invalidToken}`
       }
     });throw new Error('Expected request to fail but it succeeded');
   } catch (error) {
@@ -651,9 +618,10 @@ test('Fail to logout with no authorization token', async ()=>{
   });
 test('Fail to logout with invalid authorization token', async ()=>{
   const token = await getToken();
-  try{    await axios.post(`${BASE_URL}/auth/logout`, {}, {
+  const invalidToken = faker.string.alphanumeric(30); // generate a random invalid token
+  try{  await axios.post(`${BASE_URL}/auth/logout`, {}, {
       headers: {
-        Authorization: `Bearer invalid_token`,
+        Authorization: `Bearer ${invalidToken}`,
         'X-Platform': 'web'
       }
     }); throw new Error('Expected request to fail but it succeeded');

@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import axios from 'axios';
 import { getToken, BASE_URL} from '../utils/auth.js';
+import { faker } from '@faker-js/faker';
 
 // Retrieve Current user
 describe('GET /users/me', () => {
@@ -64,16 +65,15 @@ describe('GET /users/me', () => {
     }
   });
 
-  test('should fail to get user profile with expired token', async () => {
-    const expiredToken = '{FAKE_EXPIRED_TOKEN}'; 
-
+  test('should fail to get user profile with invalid token', async () => {
+    const invalidToken = faker.string.alphanumeric(30); // generate a random invalid token
     try {
       await axios.get(`${BASE_URL}/users/me`, {
         headers: {
-          Authorization: `Bearer ${expiredToken}`, 
+          Authorization: `Bearer ${invalidToken}`, 
         },
       });
-      throw new Error('Expected request to fail with expired token but API accepted it');
+      throw new Error('Expected request to fail with invalid token but API accepted it');
     } catch (error) {
       if (!error.response) throw error;
 

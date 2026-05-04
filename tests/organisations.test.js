@@ -1,28 +1,15 @@
 import 'dotenv/config';
 import axios from 'axios';
-import { getToken, BASE_URL,} from '../utils/auth.js';
+import { getToken, BASE_URL, generateOrgData } from '../utils/auth.js';
 import { faker } from '@faker-js/faker';
 
-
-// Helper function to generate random organization data
-function generateOrgData() {
-    return {
-        name: faker.company.name(),
-        description: faker.company.catchPhrase(),
-        email: faker.internet.email().toLowerCase(),
-        type: faker.helpers.arrayElement(['school', 'company', 'non-profit']),
-        location: faker.location.city(),
-        country: faker.location.country(),
-        logo_url: faker.image.url(),
-    };
-}
 
 describe ('POST /organisations', () => {
     // POSITIVE TEST
 
   test('should create a new organisation successfully', async () => {
     const token = await getToken();
-    const orgData = generateOrgData();
+    const orgData = await generateOrgData();
     const response = await axios.post(`${BASE_URL}/organisations`, orgData, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -70,7 +57,7 @@ describe ('POST /organisations', () => {
 // NEGATIVE TESTS
 
 test('should fail to create organisation with no token', async () => {
-  const orgData = generateOrgData();
+  const orgData = await generateOrgData();
     try {
         await axios.post(`${BASE_URL}/organisations`, orgData);
         throw new Error('Expected request to fail with no token but API accepted it');
@@ -82,8 +69,8 @@ test('should fail to create organisation with no token', async () => {
     }
 });
  test('should fail to create organisation with invalid token', async () => {
-    const invalidToken = '{FAKE_INVALID_TOKEN}'; 
-    const orgData = generateOrgData();
+    const invalidToken = faker.string.alphanumeric(30); // generate a random invalid token
+    const orgData = await generateOrgData();
     try {      await axios.post(`${BASE_URL}/organisations`, orgData, {
         headers: {
           Authorization: `Bearer ${invalidToken}`, 
@@ -100,7 +87,7 @@ test('should fail to create organisation with no token', async () => {
 });
 test('should fail to create organisation with missing email field', async () => {
   const token = await getToken();
-  const orgData = generateOrgData();
+  const orgData = await generateOrgData();
   delete orgData.email;
 
   try {
@@ -119,8 +106,8 @@ test('should fail to create organisation with missing email field', async () => 
 
 test('should fail to create organisation with invalid email format', async () => {
   const token = await getToken();
-  const orgData = generateOrgData();
-  orgData.email = 'invalid-email-format';
+  const orgData = await generateOrgData();
+  orgData.email = faker.lorem.word(); // generates a random word which is not a valid email format
 
   try {
     await axios.post(`${BASE_URL}/organisations`, orgData, {
