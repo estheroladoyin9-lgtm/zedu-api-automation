@@ -33,18 +33,18 @@ export async function generateUserData(overrides={}) {
         ...overrides,
     };
 }
-// Helper function to register a user with given payload
+// Helper function to register a user with given payload for registration tests.
  export async function registerUser(payload) {
     return axios.post(`${BASE_URL}/auth/register`,payload);
     }
 
-// Helper function to register a new user and get their credentials
+
+// Helper function to register a new user and get their credentials for Change password tests.
 export async function registerAndGetCredentials() {
   const credentials = {
     email: faker.internet.email().toLowerCase(),
     password: process.env.TEST_PASSWORD,
   };
-
   await axios.post(`${BASE_URL}/auth/register`, {
     username: faker.internet.username().replace(/[^a-zA-Z0-9_]/g, '_'),
     email: credentials.email,
@@ -57,7 +57,7 @@ export async function registerAndGetCredentials() {
   return credentials;
 }
 
-// Helper function to generate random organization data
+// Helper function to generate random organization data for Organisation tests.
 export async function generateOrgData() {
     return {
         name: faker.company.name(),
