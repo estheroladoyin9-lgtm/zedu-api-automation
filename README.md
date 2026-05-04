@@ -1,5 +1,5 @@
 ![CI](https://github.com/estheroladoyin9-lgtm/zedu-api-automation/actions/workflows/ci.yml/badge.svg)
-Zedu API Automation Test
+## Zedu API Automation Test
 
 A structured API test suite for the Zedu platform built with Jest and Axios.
 
@@ -30,7 +30,7 @@ zedu-api-automation/
 ```
 
 
-Prerequisites
+## Prerequisites
 
 Make sure you have the following installed before running the project:
 
@@ -76,39 +76,43 @@ TEST_PASSWORD=your_account_password_here
 
 Never commit your `.env` file. It is already listed in `.gitignore`.
 
-How to Run Tests
+## How to Run Tests Locally
 
-## CI/CD Pipeline
-
-This project uses GitHub Actions for continuous integration.
-
-The pipeline automatically:
-- Triggers on every push and pull request to main
-- Sets up Node.js v24
-- Installs all dependencies via npm install
-- Runs the full test suite via npm test
-- Fails the build if any test fails
-- Uploads test results as artifacts
-
-Environment variables are stored as GitHub Secrets and 
-injected into the pipeline at runtime.
-
-Run all test files:
+**Run all test files:**
 ```bash
 npm test
 ```
 
-Run a specific test file:
+**Run a specific test file:**
 ```bash
 npm test -- auth.test.js
 npm test -- users.test.js
 npm test -- organisations.test.js
 ```
 
-Run a specific test by name:
+**Run a specific test by name:**
 ```bash
 npm test -- --testNamePattern="should login successfully"
 ```
+
+---
+
+## CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration.
+
+The pipeline is located at `.github/workflows/ci.yml` and automatically:
+
+- Triggers on every push and pull request to `main`
+- Sets up Node.js v24
+- Installs all dependencies via `npm install`
+- Runs the full test suite via `npm test`
+- Fails the build if any test fails
+- Generates a JUnit XML test report
+- Uploads test results as downloadable artifacts
+
+Environment variables are stored as GitHub Secrets and injected
+into the pipeline at runtime.
 
 Test Files
 
@@ -145,7 +149,6 @@ Environment Variables
 | `BASE_URL` | Base URL of the Zedu API | `https://api.zedu.chat` |
 | `TEST_EMAIL` | Email of your registered Zedu account | `john@gmail.com` |
 | `TEST_PASSWORD` | Password of your registered Zedu account | `YourPassword123` |
-| `TEST_USER_PASSWORD` | Password used for test users | `TestPassword123!` |
 
  Key Design Decisions
 
@@ -169,6 +172,7 @@ Dependencies
 | `@babel/core` | ^7.29.0 | Babel core for ESM support |
 | `@babel/preset-env` | ^7.29.2 | Babel preset for modern JS |
 | `babel-jest` | ^30.3.0 | Jest Babel transformer |
+| `jest-junit` | ^17.0.0 | JUnit XML test reporting |
  
 Author
 Esther Oladoyin
