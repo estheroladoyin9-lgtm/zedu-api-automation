@@ -18,8 +18,9 @@ tests are independent, idempotent, and repeatable.
 
 ---
 
-## Project Structure---
+## Project Structure
 
+`````
 zedu-api-automation/
 ├── .github/
 │   └── workflows/
@@ -35,6 +36,7 @@ zedu-api-automation/
 ├── babel.config.js
 ├── package.json
 └── README.md
+`````
 
 ## Prerequisites
 
@@ -124,7 +126,7 @@ The pipeline is located at `.github/workflows/ci.yml` and automatically:
 - Uploads test results as downloadable artifacts
 
 Environment variables are stored as GitHub Secrets and injected
-into the pipeline at runtime — never hardcoded.
+into the pipeline at runtime and never hardcoded.
 
 **To view pipeline runs:**
 Go to your repo → click the **Actions** tab
@@ -166,7 +168,7 @@ Add them to a `.env` file locally and as GitHub Secrets in CI.
 
 | Variable | Description | Example |
 |---|---|---|
-| `BASE_URL` | Base URL of the Zedu API | `https://api.zedu.chat` |
+| `BASE_URL` | Base URL of the Zedu API | `https://api.staging.zedu.chat/api/v1` |
 | `TEST_EMAIL` | Email of your registered Zedu account | `john@gmail.com` |
 | `TEST_PASSWORD` | Password of your registered Zedu account | `YourPassword123` |
 
