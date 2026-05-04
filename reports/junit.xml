@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="45" failures="9" errors="0" time="49.372">
+  <testsuite name="POST /auth/register" errors="0" failures="7" skipped="0" timestamp="2026-05-04T10:28:53" time="40.374" tests="33">
+    <testcase classname="POST /auth/register Register a user successfully with valid credentials" name="POST /auth/register Register a user successfully with valid credentials" time="2.764">
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register a user with an already registered email" name="POST /auth/register Fail to register a user with an already registered email" time="0.832">
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register a user with missing email field" name="POST /auth/register Fail to register a user with missing email field" time="0.181">
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register user with missing password field" name="POST /auth/register Fail to register user with missing password field" time="0.184">
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register user with missing username field" name="POST /auth/register Fail to register user with missing username field" time="0.444">
+      <failure>Error: Expected request to fail but it succeeded
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\auth.test.js:100:12)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register user with missing first_name field" name="POST /auth/register Fail to register user with missing first_name field" time="0.515">
+      <failure>Error: Expected request to fail but it succeeded
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\auth.test.js:116:12)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register user with missing last_name field" name="POST /auth/register Fail to register user with missing last_name field" time="0.469">
+      <failure>Error: Expected request to fail but it succeeded
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\auth.test.js:132:12)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register a user with invalid email format" name="POST /auth/register Fail to register a user with invalid email format" time="0.174">
+    </testcase>
+    <testcase classname="POST /auth/register should treat both lowercase and uppercase email as duplicates" name="POST /auth/register should treat both lowercase and uppercase email as duplicates" time="0.653">
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register user with password one character below minimum" name="POST /auth/register Fail to register user with password one character below minimum" time="0.461">
+      <failure>Error: Expected request to fail but it succeeded
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\auth.test.js:183:16)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register user with phone number including letters" name="POST /auth/register Fail to register user with phone number including letters" time="0.186">
+    </testcase>
+    <testcase classname="POST /auth/register Fail to register user with missing phone number field" name="POST /auth/register Fail to register user with missing phone number field" time="0.467">
+      <failure>Error: Expected request to fail but it succeeded
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\auth.test.js:207:16)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="POST/auth/login Login successfully with valid credentials" name="POST/auth/login Login successfully with valid credentials" time="0.435">
+    </testcase>
+    <testcase classname="POST/auth/login Fail to login with incorrect password" name="POST/auth/login Fail to login with incorrect password" time="0.284">
+    </testcase>
+    <testcase classname="POST/auth/login fail to login with unregistered email" name="POST/auth/login fail to login with unregistered email" time="0.18">
+    </testcase>
+    <testcase classname="POST/auth/login Fail to login with missing email field" name="POST/auth/login Fail to login with missing email field" time="0.185">
+    </testcase>
+    <testcase classname="POST/auth/login Fail to login with missing password field" name="POST/auth/login Fail to login with missing password field" time="0.173">
+    </testcase>
+    <testcase classname="POST/auth/login Fail to login with invalid email format" name="POST/auth/login Fail to login with invalid email format" time="0.175">
+    </testcase>
+    <testcase classname="POST/auth/login Fail to login with both email and password missing" name="POST/auth/login Fail to login with both email and password missing" time="0.165">
+    </testcase>
+    <testcase classname="PUT /auth/change-password Successfully change password with valid current and new passwords" name="PUT /auth/change-password Successfully change password with valid current and new passwords" time="1.333">
+    </testcase>
+    <testcase classname="PUT /auth/change-password Successfully change password and verify login with new password" name="PUT /auth/change-password Successfully change password and verify login with new password" time="1.681">
+    </testcase>
+    <testcase classname="PUT /auth/change-password Fail to change password with incorrect old password" name="PUT /auth/change-password Fail to change password with incorrect old password" time="1.191">
+    </testcase>
+    <testcase classname="PUT /auth/change-password Fail to change password with missing old_password field" name="PUT /auth/change-password Fail to change password with missing old_password field" time="1.15">
+    </testcase>
+    <testcase classname="PUT /auth/change-password Fail to change password with missing new_password field" name="PUT /auth/change-password Fail to change password with missing new_password field" time="1.102">
+    </testcase>
+    <testcase classname="PUT /auth/change-password Fail to change password with no authorization token" name="PUT /auth/change-password Fail to change password with no authorization token" time="1.123">
+    </testcase>
+    <testcase classname="PUT /auth/change-password Fail to change password with invalid authorization token" name="PUT /auth/change-password Fail to change password with invalid authorization token" time="1.088">
+    </testcase>
+    <testcase classname="PUT /auth/change-password Successfully change password and verify login fails with old password" name="PUT /auth/change-password Successfully change password and verify login fails with old password" time="1.549">
+    </testcase>
+    <testcase classname="/POST /auth/logout Successfully logout with valid token and platform header" name="/POST /auth/logout Successfully logout with valid token and platform header" time="0.649">
+    </testcase>
+    <testcase classname="/POST /auth/logout Fail to logout with missing platform header" name="/POST /auth/logout Fail to logout with missing platform header" time="0.647">
+      <failure>Error: Expected request to fail but it succeeded
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\auth.test.js:632:15)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="/POST /auth/logout Fail to logout with no authorization token" name="/POST /auth/logout Fail to logout with no authorization token" time="0.183">
+    </testcase>
+    <testcase classname="/POST /auth/logout Fail to logout with invalid authorization token" name="/POST /auth/logout Fail to logout with invalid authorization token" time="0.641">
+    </testcase>
+    <testcase classname="/POST /auth/logout Fail to logout with invalid platform header value" name="/POST /auth/logout Fail to logout with invalid platform header value" time="0.644">
+      <failure>Error: Expected request to fail but it succeeded
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\auth.test.js:679:16)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="/POST /auth/logout Successfully logout and verify token is invalidated" name="/POST /auth/logout Successfully logout and verify token is invalidated" time="0.784">
+    </testcase>
+  </testsuite>
+  <testsuite name="POST /organisations" errors="0" failures="2" skipped="0" timestamp="2026-05-04T10:29:34" time="5.048" tests="6">
+    <testcase classname="POST /organisations should create a new organisation successfully" name="POST /organisations should create a new organisation successfully" time="0.715">
+    </testcase>
+    <testcase classname="POST /organisations should fail to create organisation with no token" name="POST /organisations should fail to create organisation with no token" time="0.203">
+    </testcase>
+    <testcase classname="POST /organisations should fail to create organisation with invalid token" name="POST /organisations should fail to create organisation with invalid token" time="0.245">
+    </testcase>
+    <testcase classname="POST /organisations should fail to create organisation with missing email field" name="POST /organisations should fail to create organisation with missing email field" time="0.671">
+      <failure>Error: Expected request to fail with missing email but API accepted it
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\organisations.test.js:110:11)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="POST /organisations should fail to create organisation with invalid email format" name="POST /organisations should fail to create organisation with invalid email format" time="0.807">
+      <failure>Error: Expected request to fail with invalid email format but API accepted it
+    at Object.&lt;anonymous&gt; (C:\Users\USER\Documents\zedu-api-automation\tests\organisations.test.js:129:11)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)</failure>
+    </testcase>
+    <testcase classname="POST /organisations should fail to create organisation with empty request" name="POST /organisations should fail to create organisation with empty request" time="1.028">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /users/me" errors="0" failures="0" skipped="0" timestamp="2026-05-04T10:29:39" time="2.603" tests="6">
+    <testcase classname="GET /users/me should return authenticated user profile successfully" name="GET /users/me should return authenticated user profile successfully" time="0.203">
+    </testcase>
+    <testcase classname="GET /users/me should fail to get user profile with no token" name="GET /users/me should fail to get user profile with no token" time="0.221">
+    </testcase>
+    <testcase classname="GET /users/me should fail to get user profile with expired token" name="GET /users/me should fail to get user profile with expired token" time="0.172">
+    </testcase>
+    <testcase classname="GET /users/me should return same user data on multiple consecutive calls" name="GET /users/me should return same user data on multiple consecutive calls" time="0.37">
+    </testcase>
+    <testcase classname="GET /users/me should not expose sensitive fields like password" name="GET /users/me should not expose sensitive fields like password" time="0.2">
+    </testcase>
+    <testcase classname="GET /users/me should fail with empty Authorization header" name="GET /users/me should fail with empty Authorization header" time="0.178">
+    </testcase>
+  </testsuite>
+</testsuites>

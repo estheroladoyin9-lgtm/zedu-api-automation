@@ -11,6 +11,16 @@
     "testTimeout": 30000,
     "transformIgnorePatterns": [
       "node_modules/(?!@faker-js/faker)"
+    ],
+     "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "./reports",
+          "outputName": "junit.xml"
+        }
+      ]
     ]
   },
   "keywords": [],
@@ -28,15 +38,5 @@
     "babel-jest": "^30.3.0",
     "jest": "^30.3.0",
     "jest-junit": "^17.0.0"
-  },
-  "reporter": [
-    "default",
-    [
-      "jest-junit",
-      {
-        "outputDirectory": "./reports",
-        "outputName": "junit.xml"
-      }
-    ]
-  ]
+  }
 }
