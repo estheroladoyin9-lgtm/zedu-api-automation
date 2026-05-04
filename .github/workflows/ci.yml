@@ -1,0 +1,41 @@
+ name : Zedu API Automation CI
+ on: 
+    push:
+      branches: [ main ]
+    pull_request:
+      branches: [ main ]
+
+      jobs:
+      build:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v6
+        - name: Set up Node.js
+          uses: actions/setup-node@v6
+          with:
+            node-version: 24.14.1
+        
+        - name: Install dependencies
+          run:  npm install
+        
+        - name: Run tests
+          run: npm test
+          env: 
+          BASE_URL: ${{ secrets.BASE_URL }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+
+          -name: Test Summary
+          uses: test-summary-action@v2
+          with: 
+          path: reports/junit.xml
+          if:always()
+
+          -name: upload test results
+          uses: actions/upload-artifact@v7
+          if: always()
+          with:
+            name: test-results
+            path: reports/junit.xml
+          

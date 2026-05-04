@@ -4,7 +4,7 @@
   "description": "This is zedu api automation project",
   "main": "index.js",
   "scripts": {
-   "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --runInBand"
+    "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js --runInBand"
   },
   "jest": {
     "testEnvironment": "node",
@@ -23,9 +23,20 @@
     "dotenv": "^17.4.2"
   },
   "devDependencies": {
-  "@babel/core": "^7.29.0",
-  "@babel/preset-env": "^7.29.2",
-  "babel-jest": "^30.3.0",
-  "jest": "^30.3.0"
-}
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "babel-jest": "^30.3.0",
+    "jest": "^30.3.0",
+    "jest-junit": "^17.0.0"
+  },
+  "reporter": [
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "./reports",
+        "outputName": "junit.xml"
+      }
+    ]
+  ]
 }

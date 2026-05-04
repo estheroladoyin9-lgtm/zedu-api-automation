@@ -1,3 +1,4 @@
+![CI](https://github.com/estheroladoyin9-lgtm/zedu-api-automation/actions/workflows/ci.yml/badge.svg)
 Zedu API Automation Test
 
 A structured API test suite for the Zedu platform built with Jest and Axios.
@@ -76,6 +77,21 @@ TEST_PASSWORD=your_account_password_here
 Never commit your `.env` file. It is already listed in `.gitignore`.
 
 How to Run Tests
+
+## CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration.
+
+The pipeline automatically:
+- Triggers on every push and pull request to main
+- Sets up Node.js v18
+- Installs all dependencies via npm install
+- Runs the full test suite via npm test
+- Fails the build if any test fails
+- Uploads test results as artifacts
+
+Environment variables are stored as GitHub Secrets and 
+injected into the pipeline at runtime.
 
 Run all test files:
 ```bash
