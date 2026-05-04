@@ -1,3 +1,8 @@
+# ─────────────────────────────────────────────
+# CI Workflow for Zedu API Automation
+# Runs automatically on every push and pull request
+# ─────────────────────────────────────────────
+
 name: Zedu API Automation CI
 
 on:
@@ -8,24 +13,30 @@ on:
 
 jobs:
   test:
+    name: Run API Tests
     runs-on: ubuntu-latest
 
-    
+    # Force all actions to use Node.js 24
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
+      # Step 1 — Check out the repository code
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      # Step 2 — Set up the correct Node.js version
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '24.14.1'
 
+      # Step 3 — Install all project dependencies
       - name: Install dependencies
         run: npm install
 
+      # Step 4 — Run the full test suite
+      # Pipeline fails automatically if any test fails
       - name: Run tests
         run: npm test
         env:
@@ -33,14 +44,18 @@ jobs:
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
 
+      # Step 5 — Generate test summary from JUnit report
+      # Runs even if tests fail so results are always visible
       - name: Test Summary
-        uses: test-summary/action@v2
+        uses: test-summary/action@v7
         with:
           paths: reports/junit.xml
         if: always()
 
+      # Step 6 — Upload test results as downloadable artifact
+      # Runs even if tests fail so report is always available
       - name: Upload test results
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
