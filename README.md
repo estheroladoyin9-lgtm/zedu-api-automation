@@ -177,7 +177,7 @@ Add them to a `.env` file locally and as GitHub Secrets in CI.
 ## Key Design Decisions
 
 - **No hardcoded credentials** — all sensitive values loaded from `.env` via `dotenv`
-- **Single auth utility** — `utils/auth.js` contains all login, register and token logic, shared across all test files
+- **Single auth utility** — `utils/auth.js` contains all login, register and token logic, shared across all test files.
 - **Independent tests** — every test is self-contained and does not depend on any other test running first
 - **Idempotent tests** — dynamically generated data via `@faker-js/faker` ensures tests can be run multiple times without conflicts
 - **Fresh users for auth tests** — register and change password tests create fresh users to avoid affecting the real account.
